@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Firepit — Wood-Fired Pizza</title>
+<meta name="description" content="Firepit — wood-fired pizza from a mobile oven. Reserve your pizza or book the truck.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0b0d;
+    --bg-2:#131318;
+    --panel:#16161c;
+    --ink:#f4f3f0;
+    --muted:#9b9aa3;
+    --line:#26262e;
+    --acc:#ff5a2c;       /* molten */
+    --acc-2:#ff8a3d;
+    --maxw:1180px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.65;-webkit-font-smoothing:antialiased}
+  h1,h2,h3,.ds{font-family:'Space Grotesk',sans-serif;letter-spacing:-0.02em;line-height:1.02}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 26px}
+  section{padding:110px 0}
+  .eyebrow{font-family:'Space Grotesk';font-weight:600;text-transform:uppercase;letter-spacing:.32em;font-size:.72rem;color:var(--acc)}
+  .btn{display:inline-flex;align-items:center;gap:.55em;font-family:'Space Grotesk';font-weight:600;padding:.95em 1.7em;border:1px solid transparent;cursor:pointer;transition:.2s;font-size:.95rem;border-radius:4px}
+  .btn-primary{background:var(--acc);color:#0b0b0d}
+  .btn-primary:hover{background:var(--acc-2)}
+  .btn-line{border-color:var(--line);color:var(--ink)}
+  .btn-line:hover{border-color:var(--acc);color:var(--acc)}
+
+  /* logo */
+  .logo{display:flex;align-items:center;gap:11px}
+  .logo svg{width:30px;height:30px;display:block}
+  .logo-word{font-family:'Space Grotesk';font-weight:700;font-size:1.28rem;letter-spacing:.04em;text-transform:uppercase}
+  .logo-word b{color:var(--acc);font-weight:700}
+
+  /* nav */
+  header.nav{position:sticky;top:0;z-index:50;background:rgba(11,11,13,.72);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .nav .wrap{display:flex;align-items:center;justify-content:space-between;height:74px}
+  .nav nav{display:flex;align-items:center;gap:34px}
+  .nav nav a{color:var(--muted);font-size:.9rem;font-weight:500;letter-spacing:.01em;transition:.2s}
+  .nav nav a:hover{color:var(--ink)}
+  .nav .btn{padding:.6em 1.2em}
+  #navToggle{display:none;background:none;border:0;color:var(--ink);font-size:1.5rem;cursor:pointer}
+
+  /* hero */
+  .hero{position:relative;border-bottom:1px solid var(--line);overflow:hidden}
+  .hero::before{content:"";position:absolute;width:680px;height:680px;right:-160px;top:-160px;background:radial-gradient(circle,rgba(255,90,44,.22),transparent 62%);pointer-events:none}
+  .hero .wrap{position:relative;z-index:2;padding:120px 26px 96px}
+  .hero .tag{display:inline-flex;align-items:center;gap:9px;border:1px solid var(--line);border-radius:999px;padding:.45em 1em;font-size:.78rem;color:var(--muted);margin-bottom:30px}
+  .hero .tag .dot{width:7px;height:7px;border-radius:50%;background:var(--acc);box-shadow:0 0 10px var(--acc)}
+  .hero h1{font-size:clamp(3rem,9vw,7.2rem);font-weight:700;max-width:14ch}
+  .hero h1 .o{color:var(--acc)}
+  .hero .row{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;margin-top:40px;flex-wrap:wrap}
+  .hero p.lede{font-size:1.2rem;color:var(--muted);max-width:46ch}
+  .hero .cta{display:flex;gap:12px;flex-wrap:wrap}
+
+  /* marquee */
+  .marquee{border-bottom:1px solid var(--line);background:var(--bg-2);overflow:hidden;white-space:nowrap;padding:18px 0}
+  .marquee div{display:inline-block;animation:scroll 26s linear infinite;font-family:'Space Grotesk';font-weight:600;text-transform:uppercase;letter-spacing:.2em;color:var(--muted);font-size:.95rem}
+  .marquee span{margin:0 26px}.marquee span b{color:var(--acc)}
+  @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  /* feature row */
+  .feats{padding:90px 0}
+  .feats .wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+  .feats .cell{background:var(--bg);padding:38px 30px}
+  .feats .num{font-family:'Space Grotesk';color:var(--acc);font-size:.8rem;letter-spacing:.2em;margin-bottom:18px}
+  .feats h3{font-size:1.4rem;font-weight:600;margin-bottom:.4em}
+  .feats p{color:var(--muted);font-size:.97rem}
+
+  /* section heads */
+  .shead{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;margin-bottom:54px;flex-wrap:wrap}
+  .shead h2{font-size:clamp(2.2rem,5vw,3.6rem);font-weight:700;max-width:16ch}
+  .shead p{color:var(--muted);max-width:34ch}
+
+  /* menu */
+  .menu-list{border-top:1px solid var(--line)}
+  .row-item{display:grid;grid-template-columns:46px 1fr auto;gap:22px;align-items:center;padding:26px 6px;border-bottom:1px solid var(--line);transition:.2s}
+  .row-item:hover{background:var(--bg-2);padding-left:18px}
+  .row-item .idx{font-family:'Space Grotesk';color:var(--muted);font-size:.9rem}
+  .row-item h3{font-size:1.4rem;font-weight:600;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .row-item p{color:var(--muted);font-size:.95rem;margin-top:3px}
+  .row-item .price{font-family:'Space Grotesk';font-weight:700;font-size:1.5rem;color:var(--acc)}
+  .chip{font-size:.66rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em;padding:.25em .65em;border-radius:3px;border:1px solid var(--line);color:var(--muted)}
+  .chip.v{color:#7fd07f;border-color:#2f5a2f}.chip.vg{color:#5fd0b0;border-color:#2a5a4d}
+
+  /* reserve */
+  .reserve{background:var(--bg-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .form-card{max-width:680px;margin:0 auto}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .field{margin-bottom:16px;display:flex;flex-direction:column}
+  .field label{font-family:'Space Grotesk';font-size:.74rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+  .field input,.field select,.field textarea{font-family:'Inter';font-size:1rem;padding:.85em .95em;border-radius:4px;border:1px solid var(--line);background:var(--bg);color:var(--ink);width:100%}
+  .field textarea{resize:vertical;min-height:84px}
+  .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--acc)}
+  .field select option{color:#0b0b0d;background:#fff}
+  .form-card .btn-primary{width:100%;justify-content:center;margin-top:6px;font-size:1.05rem}
+  .form-msg{text-align:center;margin-top:16px;font-weight:600;color:var(--acc-2);min-height:1.2em;font-family:'Space Grotesk'}
+  .form-fine{text-align:center;color:var(--muted);font-size:.8rem;margin-top:14px}
+
+  /* find us */
+  .find .wrap{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+  .sched{border:1px solid var(--line)}
+  .sched .r{display:flex;justify-content:space-between;gap:14px;padding:17px 22px;border-bottom:1px solid var(--line)}
+  .sched .r:last-child{border-bottom:0}
+  .sched .day{font-family:'Space Grotesk';font-weight:600}
+  .sched .loc{color:var(--muted);text-align:right;font-size:.95rem}
+  .sched .r.live{background:linear-gradient(90deg,rgba(255,90,44,.1),transparent)}
+  .sched .live .day::after{content:"LIVE";font-size:.6rem;background:var(--acc);color:#0b0b0d;padding:.2em .55em;border-radius:3px;margin-left:9px;vertical-align:middle;font-family:'Space Grotesk';letter-spacing:.08em}
+  .find h2{font-size:clamp(2rem,4.5vw,3.2rem);font-weight:700;margin-bottom:.4em}
+  .find p{color:var(--muted);margin-bottom:1.3em}
+  .socials{display:flex;gap:12px;margin-top:20px}
+  .socials a{display:inline-grid;place-items:center;width:46px;height:46px;border:1px solid var(--line);color:var(--ink);transition:.2s;border-radius:4px}
+  .socials a:hover{border-color:var(--acc);color:var(--acc)}
+  .socials svg{width:20px;height:20px}
+
+  /* about */
+  .about .wrap{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+  .about-vis{aspect-ratio:1/1;border:1px solid var(--line);position:relative;overflow:hidden;display:grid;place-items:center;background:var(--bg-2)}
+  .about-vis::before{content:"";position:absolute;width:380px;height:380px;background:radial-gradient(circle,rgba(255,90,44,.3),transparent 60%)}
+  .about-vis svg{width:46%;position:relative;z-index:2}
+  .about h2{font-size:clamp(2rem,4.5vw,3.2rem);font-weight:700;margin-bottom:.5em}
+  .about p{color:var(--muted);margin-bottom:1em;font-size:1.05rem}
+  .ph{display:inline-block;border:1px dashed var(--acc);color:var(--acc);font-family:'Space Grotesk';font-size:.74rem;font-weight:600;padding:.3em .8em;border-radius:3px;margin-bottom:16px;letter-spacing:.06em}
+
+  /* events */
+  .events{text-align:center;border-top:1px solid var(--line);background:var(--bg-2)}
+  .events h2{font-size:clamp(2.2rem,5.5vw,4rem);font-weight:700;margin-bottom:.3em}
+  .events p{color:var(--muted);max-width:54ch;margin:0 auto 1.6em;font-size:1.1rem}
+  .events .cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  .events .cl{margin-top:28px;color:var(--muted)}.events .cl a{color:var(--acc-2);font-weight:600}
+
+  footer{border-top:1px solid var(--line);padding:40px 0;color:var(--muted);font-size:.88rem}
+  footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+  footer a:hover{color:var(--acc)}
+
+  @media(max-width:860px){
+    .feats .wrap,.find .wrap,.about .wrap,.grid2{grid-template-columns:1fr}
+    .nav nav{position:fixed;inset:74px 0 auto 0;background:var(--bg);flex-direction:column;gap:0;padding:8px 0;display:none;border-bottom:1px solid var(--line)}
+    .nav nav.open{display:flex}.nav nav a{padding:14px 26px;width:100%}.nav nav .btn{margin:10px 26px}
+    #navToggle{display:block}
+    .row-item{grid-template-columns:1fr auto;gap:14px}.row-item .idx{display:none}
+    .about-vis{max-width:340px;margin:0 auto}
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="flame" viewBox="0 0 48 48">
+    <path d="M24 4c1.6 5.6-2.4 7.2-4 10.4-1.9 3.8-.8 6.4.8 8 .5-1.6 1.4-2.7 2.7-3.7-.2 2.4.6 4 2 5.3 2.7 2.4 3.7 5.1 2.6 8.5 4.8-1.9 7.9-6.2 7.9-11.4 0-4.8-2.7-7.7-4.5-10.7-1 1-1.6 2.1-1.8 3.4C30.3 12.8 28.4 8.5 24 4z" fill="#ff5a2c"/>
+  </symbol>
+</svg>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="logo" href="#top"><svg><use href="#flame"/></svg><span class="logo-word">Fire<b>pit</b></span></a>
+    <button id="navToggle" aria-label="Menu">☰</button>
+    <nav id="navMenu">
+      <a href="#menu">Menu</a><a href="#find">Find us</a><a href="#about">About</a><a href="#events">Events</a>
+      <a class="btn btn-primary" href="#reserve">Reserve</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" id="top" style="padding:0">
+  <div class="wrap">
+    <span class="tag"><span class="dot"></span> Mobile wood-fired pizza · UK</span>
+    <h1>Fire. Dough. <span class="o">Done.</span></h1>
+    <div class="row">
+      <p class="lede">Slow-proved dough blistered in 90 seconds over real wood flame. Catch the truck — or reserve your pizza before you arrive.</p>
+      <div class="cta">
+        <a class="btn btn-primary" href="#reserve">Reserve a pizza →</a>
+        <a class="btn btn-line" href="#menu">View menu</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee"><div>
+  <span>Wood-fired</span><span>·</span><span><b>48hr dough</b></span><span>·</span><span>450°C</span><span>·</span><span>90-second bake</span><span>·</span><span><b>Reserve ahead</b></span><span>·</span><span>Book the truck</span><span>·</span>
+  <span>Wood-fired</span><span>·</span><span><b>48hr dough</b></span><span>·</span><span>450°C</span><span>·</span><span>90-second bake</span><span>·</span><span><b>Reserve ahead</b></span><span>·</span><span>Book the truck</span><span>·</span>
+</div></div>
+
+<section class="feats">
+  <div class="wrap">
+    <div class="cell"><div class="num">01</div><h3>Real wood fire</h3><p>450°C live flame. Leopard-spotted crust, smoke, and a soft, blistered centre every time.</p></div>
+    <div class="cell"><div class="num">02</div><h3>Reserve ahead</h3><p>Choose your pizza and a collection slot. Skip the queue and pay when you pick it up.</p></div>
+    <div class="cell"><div class="num">03</div><h3>Book the truck</h3><p>Weddings, parties, work dos — we roll up with the oven and feed your whole crowd.</p></div>
+  </div>
+</section>
+
+<section id="menu">
+  <div class="wrap">
+    <div class="shead">
+      <div><span class="eyebrow">The menu</span><h2 style="margin-top:.3em">Six pizzas, zero shortcuts.</h2></div>
+      <p>A sample menu to show the layout — we'll drop in Firepit's real pizzas and prices.</p>
+    </div>
+    <div class="menu-list">
+      <div class="row-item"><span class="idx">01</span><div><h3>Margherita <span class="chip v">Veggie</span></h3><p>San Marzano tomato, fior di latte, fresh basil, olive oil.</p></div><span class="price">£9</span></div>
+      <div class="row-item"><span class="idx">02</span><div><h3>Nduja &amp; Honey <span class="chip">Spicy</span></h3><p>Spicy Calabrian nduja, mozzarella, a drizzle of hot honey.</p></div><span class="price">£12</span></div>
+      <div class="row-item"><span class="idx">03</span><div><h3>Pepperoni</h3><p>Double pepperoni, mozzarella, tomato, oregano.</p></div><span class="price">£11</span></div>
+      <div class="row-item"><span class="idx">04</span><div><h3>Funghi <span class="chip v">Veggie</span></h3><p>Roasted mushrooms, garlic, mozzarella, thyme, truffle oil.</p></div><span class="price">£11</span></div>
+      <div class="row-item"><span class="idx">05</span><div><h3>Garden <span class="chip vg">Vegan</span></h3><p>Roasted peppers, courgette, red onion, vegan mozzarella.</p></div><span class="price">£11</span></div>
+      <div class="row-item"><span class="idx">06</span><div><h3>Bianca <span class="chip v">Veggie</span></h3><p>White base, ricotta, mozzarella, rosemary, sea salt.</p></div><span class="price">£10</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="reserve" class="reserve">
+  <div class="wrap">
+    <div class="shead" style="justify-content:center;text-align:center"><div><span class="eyebrow">Reserve</span><h2 style="margin-top:.3em">Skip the queue.</h2></div></div>
+    <form class="form-card" id="reserveForm" novalidate>
+      <div class="grid2">
+        <div class="field"><label for="name">Name</label><input id="name" type="text" placeholder="Jane Smith" required></div>
+        <div class="field"><label for="contact">Phone or email</label><input id="contact" type="text" placeholder="07… or you@email.com" required></div>
+      </div>
+      <div class="grid2">
+        <div class="field"><label for="pizza">Pizza</label><select id="pizza" required>
+          <option value="" disabled selected>Choose…</option>
+          <option>Margherita — £9</option><option>Nduja &amp; Honey — £12</option><option>Pepperoni — £11</option>
+          <option>Funghi — £11</option><option>Garden (vegan) — £11</option><option>Bianca — £10</option></select></div>
+        <div class="field"><label for="qty">Quantity</label><select id="qty" required><option>1</option><option>2</option><option>3</option><option>4</option><option>5+</option></select></div>
+      </div>
+      <div class="grid2">
+        <div class="field"><label for="date">Collection date</label><input id="date" type="date" required></div>
+        <div class="field"><label for="time">Collection time</label><input id="time" type="time" required></div>
+      </div>
+      <div class="field"><label for="notes">Notes</label><textarea id="notes" placeholder="Allergies, extra toppings, where you'll find us…"></textarea></div>
+      <button type="submit" class="btn btn-primary">Send reservation →</button>
+      <p class="form-msg" id="formMsg" role="status"></p>
+      <p class="form-fine">Opens your email app with the details ready to send. Can be swapped for instant online booking later.</p>
+    </form>
+  </div>
+</section>
+
+<section id="find" class="find">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">Find us</span>
+      <h2 style="margin-top:.3em">Where's the truck?</h2>
+      <p>We move around — markets, pitches and events. Sample schedule here; we'll keep it live and post each day's spot on socials.</p>
+      <a class="btn btn-primary" href="#reserve">Reserve for collection →</a>
+      <div class="socials">
+        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 9h3V6h-3c-2 0-3 1.3-3 3v2H8v3h3v6h3v-6h2.5l.5-3H14v-1.3c0-.5.3-.7.8-.7z"/></svg></a>
+      </div>
+    </div>
+    <div class="sched">
+      <div class="r"><span class="day">Tuesday</span><span class="loc">Town Square Market · 5–9pm</span></div>
+      <div class="r live"><span class="day">Wednesday</span><span class="loc">Old Brewery Yard · 5–9pm</span></div>
+      <div class="r"><span class="day">Thursday</span><span class="loc">Riverside Food Market · 4–9pm</span></div>
+      <div class="r"><span class="day">Friday</span><span class="loc">The Crown car park · 5–10pm</span></div>
+      <div class="r"><span class="day">Saturday</span><span class="loc">Private events — book below</span></div>
+      <div class="r"><span class="day">Sunday</span><span class="loc">Farmers' Market · 11am–3pm</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="about" class="about">
+  <div class="wrap">
+    <div class="about-vis"><svg><use href="#flame"/></svg></div>
+    <div>
+      <span class="eyebrow">Our story</span>
+      <h2 style="margin-top:.3em">Built around a flame.</h2>
+      <span class="ph">Placeholder — your friend's real story goes here</span>
+      <p>Firepit started with one obsession: pizza cooked properly, over real wood flame. Years of dough experiments and feeding friends from a tiny garden oven turned into a mobile pizzeria built to bring fire-blistered pizza to the streets.</p>
+      <p>Every dough is slow-proved for 48 hours, topped with the best we can find, and cooked in front of you in 90 seconds. No shortcuts — just proper pizza and a bit of fire-side theatre.</p>
+    </div>
+  </div>
+</section>
+
+<section id="events" class="events">
+  <div class="wrap">
+    <h2>Book the truck.</h2>
+    <p>Weddings, birthdays, work dos, festivals — we bring the oven, the dough and the fire, and feed your crowd fresh pizza all night. Tell us the date and headcount and we'll send a quote.</p>
+    <div class="cta">
+      <a class="btn btn-primary" href="#" id="eventBtn">Enquire about your event →</a>
+      <a class="btn btn-line" href="#reserve">Or reserve a pizza</a>
+    </div>
+    <p class="cl">Or say hello — <a href="#" id="emailLink">hello@firepit.co.uk</a> · <a href="#">07000 000000</a></p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <a class="logo" href="#top"><svg style="width:24px;height:24px"><use href="#flame"/></svg><span class="logo-word">Fire<b>pit</b></span></a>
+    <span>© <span id="yr"></span> Firepit · Wood-fired pizza · UK</span>
+    <span><a href="#menu">Menu</a> · <a href="#reserve">Reserve</a> · <a href="#events">Events</a></span>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+  const toggle=document.getElementById('navToggle'),menu=document.getElementById('navMenu');
+  toggle.addEventListener('click',()=>menu.classList.toggle('open'));
+  menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>menu.classList.remove('open')));
+
+  const BUSINESS_EMAIL='hello@firepit.co.uk';
+  const el=document.getElementById('emailLink'); el.textContent=BUSINESS_EMAIL; el.href='mailto:'+BUSINESS_EMAIL;
+  document.getElementById('eventBtn').href='mailto:'+BUSINESS_EMAIL+'?subject='+encodeURIComponent('Event enquiry — Firepit')+'&body='+encodeURIComponent('Hi Firepit,\n\nDate of event:\nLocation:\nApprox guests:\nA bit about the event:\n\nThanks!');
+
+  const form=document.getElementById('reserveForm'),msg=document.getElementById('formMsg');
+  form.addEventListener('submit',e=>{
+    e.preventDefault();
+    if(!form.checkValidity()){form.reportValidity();return;}
+    const g=id=>document.getElementById(id).value;
+    const body='Pizza reservation\n\nName: '+g('name')+'\nContact: '+g('contact')+'\nPizza: '+g('pizza')+'\nQuantity: '+g('qty')+'\nCollection: '+g('date')+' at '+g('time')+'\nNotes: '+(g('notes')||'—')+'\n';
+    window.location.href='mailto:'+BUSINESS_EMAIL+'?subject='+encodeURIComponent('Pizza reservation — '+g('name'))+'&body='+encodeURIComponent(body);
+    msg.textContent='Opening your email app to send the reservation…';
+  });
+</script>
+</body>
+</html>
